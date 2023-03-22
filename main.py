@@ -36,7 +36,7 @@ def list_products_per_tag(tag_id):
     try:
         tag = Tag.get_by_id(tag_id)
     except DoesNotExist:
-        print(f"Tag_id: '{tag_id}' was not found")
+        print(f"Tag_id: '{tag_id}' is not found")
         return
 
     print(f"Tag '{tag.name}' is present in the following products:")
@@ -50,7 +50,7 @@ def add_product_to_catalog(user_id, product):
     try:
         user = User.get_by_id(user_id)
     except DoesNotExist:
-        print(f"User_id with id: '{user_id}' is not present")
+        print(f"User with id: '{user_id}' is not found")
         return
 
     Product.create(
@@ -68,7 +68,7 @@ def add_product_to_catalog(user_id, product):
 def update_stock(product_id, new_quantity):
     num_upd = Product.set_by_id(product_id, {"quantity": new_quantity})
     if num_upd == 0:
-        print(f"Product with id: '{product_id}' is not present")
+        print(f"Product with id: '{product_id}' is not found")
     else:
         print(
             f"Product with id: '{product_id}' has been updated, new quantity is: {new_quantity}"
@@ -79,13 +79,13 @@ def purchase_product(product_id, buyer_id, quantity):
     try:
         product = Product.get_by_id(product_id)
     except DoesNotExist:
-        print(f"Product with id: '{product_id}' is not present")
+        print(f"Product with id: '{product_id}' is not found")
         return
 
     try:
         user = User.get_by_id(buyer_id)
     except DoesNotExist:
-        print(f"Buyer with id: '{buyer_id}' is not present")
+        print(f"Buyer with id: '{buyer_id}' is not found")
         return
 
     if product.quantity >= quantity:
@@ -105,7 +105,7 @@ def remove_product(product_id):
     try:
         product = Product.get_by_id(product_id)
     except DoesNotExist:
-        print(f"Product with id: '{product_id}' is not present")
+        print(f"Product with id: '{product_id}' is not found")
         return
 
     product.delete_instance(recursive=True, delete_nullable=True)
@@ -128,7 +128,7 @@ def main():
 
     # kees = User.get_by_id(3)
     # product_temp = Product(name="Nokia3330", description="Een 2e hands Nokia uit 2008", price=20.56789, quantity=999, owner=kees)
-    # add_product_to_catalog(3, product_temp)
+    # add_product_to_catalog(4, product_temp)
 
     # update_stock(3, 900)
 
