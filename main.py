@@ -47,6 +47,12 @@ def list_products_per_tag(tag_id):
 
 
 def add_product_to_catalog(user_id, product):
+    try:
+        user = User.get_by_id(user_id)
+    except DoesNotExist:
+        print(f"User_id with id: '{user_id}' is not present")
+        return
+
     Product.create(
         name=product.name,
         description=product.description,
@@ -55,7 +61,7 @@ def add_product_to_catalog(user_id, product):
         owner=user_id,
     )
     print(
-        f"Product: '{product.name}' has been added. Owner is: {User.get_by_id(user_id).username}"
+        f"Product: '{product.name}' has been added. Owner is: {user.username}"
     )
 
 
@@ -120,9 +126,9 @@ def main():
 
     # list_products_per_tag(1)
 
-    # piet = User.get_by_id(3)
-    # product_temp = Product(name="Nokia3330", description="Een 2e hands Nokia uit 2008", price=20.56789, quantity=999, owner=piet)
-    # add_product_to_catalog(1, product_temp)
+    # kees = User.get_by_id(3)
+    # product_temp = Product(name="Nokia3330", description="Een 2e hands Nokia uit 2008", price=20.56789, quantity=999, owner=kees)
+    # add_product_to_catalog(3, product_temp)
 
     # update_stock(3, 900)
 
